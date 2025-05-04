@@ -12,7 +12,7 @@ const limiter = rateLimit({
 
 const corsMiddleware = (app) => {
     const corsOptions = {
-        origin: [''],
+        origin: ['*'],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization']
     };
