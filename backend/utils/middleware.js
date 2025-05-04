@@ -10,17 +10,6 @@ const limiter = rateLimit({
     message: 'Too many requests from this IP, please try again later.'
 });
 
-{/*
-    // Middleware untuk keamanan
-const securityMiddleware = (app) => {
-    app.use(helmet()); // Set HTTP headers untuk keamanan
-    app.use(xss()); // Mencegah XSS (Cross-site scripting)
-    app.use(mongoSanitize()); // Mencegah NoSQL Injection
-    app.use(limiter); // Rate Limiting
-};
-*/}
-
-
 const corsMiddleware = (app) => {
     const corsOptions = {
         origin: ['*', 'https://os.netlabdte.com', 'http://localhost:5173', 'https://advanced-express-zkl7.vercel.app','http://192.168.76.1:5173', 'https://advanced-express-zkl7-git-main-daffa-hardhans-projects.vercel.app'],

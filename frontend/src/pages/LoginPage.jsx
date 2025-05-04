@@ -45,8 +45,14 @@ const LoginPage = ({ onLogin }) => {
     try {
       setIsLoading(true);
       const response = await api.post('/users/login', formData);
-      onLogin(response.data.token);
-      navigate('/dashboard');
+      if (response.data.success) {
+        // Store user data and token if you implement JWT later
+        localStorage.setItem('user', JSON.stringify(response.data.data));
+        onLogin();
+        navigate('/dashboard');
+      } else {
+        setErrors({ general: response.data.message || 'Login failed' });
+      }
     } catch (error) {
       setErrors({ 
         general: error.response?.data?.message || 'Login failed. Please try again.' 
@@ -55,7 +61,7 @@ const LoginPage = ({ onLogin }) => {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">

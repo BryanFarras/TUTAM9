@@ -9,20 +9,18 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if token exists in localStorage on app load
-    const token = localStorage.getItem('token');
-    if (token) {
+    const user = localStorage.getItem('user');
+    if (user) {
       setIsAuthenticated(true);
     }
   }, []);
 
-  const handleLogin = (token) => {
-    localStorage.setItem('token', token);
+  const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setIsAuthenticated(false);
   };
 

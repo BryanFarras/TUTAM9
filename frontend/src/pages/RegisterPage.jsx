@@ -4,11 +4,12 @@ import api from '../api';
 
 const RegisterPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',  
     email: '',
     password: '',
     confirmPassword: '',
   });
+
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -60,8 +61,14 @@ const RegisterPage = ({ onLogin }) => {
       setIsLoading(true);
       const { confirmPassword, ...data } = formData;
       const response = await api.post('/users/register', data);
-      onLogin(response.data.token);
-      navigate('/dashboard');
+      if (response.data.success) {
+        // Store user data
+        localStorage.setItem('user', JSON.stringify(response.data.data));
+        onLogin();
+        navigate('/dashboard');
+      } else {
+        setErrors({ general: response.data.message || 'Registration failed' });
+      }
     } catch (error) {
       setErrors({ 
         general: error.response?.data?.message || 'Registration failed. Please try again.' 
