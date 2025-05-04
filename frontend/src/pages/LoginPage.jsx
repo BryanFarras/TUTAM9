@@ -24,6 +24,8 @@ const LoginPage = ({ onLogin }) => {
     
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
     }
     
     if (!formData.password) {
@@ -45,8 +47,8 @@ const LoginPage = ({ onLogin }) => {
     try {
       setIsLoading(true);
       const response = await api.post('/users/login', formData);
+      
       if (response.data.success) {
-        // Store user data and token if you implement JWT later
         localStorage.setItem('user', JSON.stringify(response.data.data));
         onLogin();
         navigate('/dashboard');
@@ -61,7 +63,7 @@ const LoginPage = ({ onLogin }) => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
@@ -93,7 +95,7 @@ const LoginPage = ({ onLogin }) => {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
               {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
@@ -108,7 +110,7 @@ const LoginPage = ({ onLogin }) => {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
             </div>

@@ -4,12 +4,11 @@ import api from '../api';
 
 const RegisterPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({
-    name: '',  
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
   });
-
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,8 +24,8 @@ const RegisterPage = ({ onLogin }) => {
   const validate = () => {
     const newErrors = {};
     
-    if (!formData.username.trim()) {
-      newErrors.username = 'Username is required';
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
     }
     
     if (!formData.email.trim()) {
@@ -61,8 +60,8 @@ const RegisterPage = ({ onLogin }) => {
       setIsLoading(true);
       const { confirmPassword, ...data } = formData;
       const response = await api.post('/users/register', data);
+      
       if (response.data.success) {
-        // Store user data
         localStorage.setItem('user', JSON.stringify(response.data.data));
         onLogin();
         navigate('/dashboard');
@@ -79,10 +78,10 @@ const RegisterPage = ({ onLogin }) => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="mx-8 w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-gray-900">Create an Account</h1>
+          <h1 className="text-3xl font-extrabold text-gray-900">Create an account</h1>
           <p className="mt-2 text-sm text-gray-600">
             Or{' '}
             <Link to="/login" className="font-medium text-blue-600 hover:text-blue-500">
@@ -100,18 +99,18 @@ const RegisterPage = ({ onLogin }) => {
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Username
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
               </label>
               <input
-                id="username"
-                name="username"
+                id="name"
+                name="name"
                 type="text"
-                value={formData.username}
+                value={formData.name}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
-              {errors.username && <p className="mt-1 text-sm text-red-600">{errors.username}</p>}
+              {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
             </div>
             
             <div>
@@ -124,7 +123,7 @@ const RegisterPage = ({ onLogin }) => {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
               {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
@@ -139,7 +138,7 @@ const RegisterPage = ({ onLogin }) => {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.password ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
             </div>
@@ -154,7 +153,7 @@ const RegisterPage = ({ onLogin }) => {
                 type="password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className={`block w-full px-3 py-2 mt-1 border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
               />
               {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
             </div>
