@@ -14,7 +14,7 @@ function RegisterPage() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/users/register', { name, email, password });
+      const response = await axios.post('http://localhost:3000/user/register', { name, email, password });
 
       if (response.data.success) {
         setSuccessMsg("Registration successful. Redirecting to login...");
@@ -28,15 +28,15 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form onSubmit={handleRegister} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center">
+      <form onSubmit={handleRegister} className="bg-black p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6">Register</h2>
         {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
         {successMsg && <p className="text-green-500 mb-4">{successMsg}</p>}
         <input
           type="text"
           placeholder="Name"
-          className="w-full border border-gray-300 rounded px-4 py-2 mb-4"
+          className="w-full rounded px-4 py-2 mb-4" 
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -44,7 +44,7 @@ function RegisterPage() {
         <input
           type="email"
           placeholder="Email"
-          className="w-full border border-gray-300 rounded px-4 py-2 mb-4"
+          className="w-full rounded px-4 py-2 mb-4"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -52,12 +52,12 @@ function RegisterPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full border border-gray-300 rounded px-4 py-2 mb-4"
+          className="w-full rounded px-4 py-2 mb-4" 
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+        <button type="submit" className="w-full bg-color_pink1 text-white py-2 rounded hover:bg-green-700">
           Register
         </button>
       </form>
