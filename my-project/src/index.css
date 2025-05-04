@@ -28,9 +28,9 @@ a:hover {
 
 body {
   display: flex;
-  justify-content: center;   /* Center horizontal */
-  align-items: flex-start;   /* Tidak center vertikal */
-  background-color: #f3f4f6; /* Tailwind bg-gray-100 */
+  justify-content: center;   
+  align-items: flex-start;
+  background-color: #ebbdcd; 
   font-family: 'Inter', sans-serif;
 }
 

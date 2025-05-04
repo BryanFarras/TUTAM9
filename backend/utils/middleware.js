@@ -12,7 +12,7 @@ const limiter = rateLimit({
 
 const corsMiddleware = (app) => {
     const corsOptions = {
-        origin: ['*', 'https://os.netlabdte.com', 'http://localhost:5173', 'https://advanced-express-zkl7.vercel.app','http://192.168.76.1:5173', 'https://advanced-express-zkl7-git-main-daffa-hardhans-projects.vercel.app'],
+        origin: [''],
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization']
     };
